@@ -1,7 +1,6 @@
 var that;
 var app = getApp();
 
-
 Page({
 
   data: {

@@ -3,6 +3,7 @@
 .rich-p {
   font-size: 30rpx;
   padding-top: 24rpx;
+  word-break: break-all;
 }
 /* pre */
 .rich-pre {

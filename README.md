@@ -6,7 +6,8 @@
 richTextParse的思路就是将HTML代码解析为DOM树型结构，非常好理解。你也可以在目前代码的基础上进行更多的标签验证（目前我只验证了图像标签，在图像标签中加入src等属性），丰富代码功能。而这一切都不能离开微信小程序中的[rich-text标签](https://mp.weixin.qq.com/debug/wxadoc/dev/component/rich-text.html)支持。
 
 ### 效果
-![效果图](http://www.jingjingke.com/uploads/allimg/171026/1-1G026135P50-L.gif)
+![效果图](utils/richTextParse/effect.png)
+
 支持Html文档中常用的标签。
 
 ### 使用

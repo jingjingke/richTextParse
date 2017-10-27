@@ -15,10 +15,6 @@ App({
     })
   },
 
-  //将获取到的html文本转换成rich-text可以识别的数组对象
-  // richTextParse:function(data){
-    
-  // },
   richTextParse:richTextParse.go,
 
   onLaunch: function () {
