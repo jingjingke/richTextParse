@@ -1,0 +1,12 @@
+<import src="/templates/nodes.wxml"/>
+<view wx:if='{{showPage}}'>
+  <view class='article-title'>{{data.title}}</view>
+  <view class='article-info'>
+    <text>{{data.senddate}}</text>|<text>{{data.typename}}</text>|<text>{{data.source}}</text>
+  </view>
+  <view class='article-des'>{{data.description}}</view>
+  <view class='article-litpic'><image src='http://www.jingjingke.com{{data.litpic}}' mode='widthFix' /></view>
+  <view class='article-content'>
+      <rich-text nodes='{{bodyHtml}}'></rich-text>  
+  </view>
+</view>

@@ -1,0 +1,13 @@
+/* 没有更多 */
+.delay-more {
+  text-align: center;
+  line-height: 4.5em;
+  color: #aaa;
+}
+
+.delay-more.icon-font-delay::before {
+  display: inline-block;
+  animation: roundDealy 3s linear infinite;
+  margin-right: 6rpx; 
+}
+@keyframes roundDealy{0%{ transform:rotate(0deg)}100%{ transform:rotate(360deg)}} 

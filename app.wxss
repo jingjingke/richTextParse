@@ -1,0 +1,25 @@
+/**app.wxss**/
+/* .container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+
+}  */
+
+page {
+  background: #f2f2f2;
+  font-size: 26rpx;
+}
+/* 页面图标字体 */
+@import 'font/font.wxss';
+/* 列表样式 */
+@import 'templates/list.wxss';
+/* 没有更多 */
+@import 'templates/more.wxss';
+
+/* 微信HTML(rich-text)需要的样式 */
+@import 'utils/richTextParse/richText.wxss';

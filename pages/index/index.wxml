@@ -1,0 +1,17 @@
+<import src="/templates/list.wxml"/>
+<import src="/templates/more.wxml"/>
+<view wx:if='{{showPage}}'>
+  <swiper indicator-dots='true' class="slide-warp">
+    <swiper-item wx:for="{{workslist}}" data-info="{{item}}" bindtap='articleListTap'>
+      <image src="http://www.jingjingke.com{{item.litpic}}" class="slide-image" />
+      <text class='slide-text'>{{item.title}}</text>
+    </swiper-item>
+  </swiper>
+  <view class="sort-entry">
+    <text wx:for="{{linkList}}" class='sort-entry-button icon-font {{item.icon}}' data-info="{{item}}" bindtap='goTypeidList'>{{item.title}}</text>
+  </view>
+   <block wx:for="{{articleList}}">
+    <template is="articleList" data='{{item,articleListTap}}' />
+  </block>
+  <template is="noMore" data='{{moreStatus}}' />
+</view> 

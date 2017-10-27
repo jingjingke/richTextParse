@@ -1,0 +1,4 @@
+<template name="noMore">
+  <view wx:if="{{!moreStatus}}" class='delay-more icon-font icon-font-delay'>正在加载中...</view>
+  <view wx:if="{{moreStatus}}" class='delay-more'>别向下拖了，人家也是有底线的呐</view> 
+</template>

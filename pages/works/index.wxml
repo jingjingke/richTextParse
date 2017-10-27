@@ -1,0 +1,7 @@
+<import src="/templates/list.wxml"/>
+<import src="/templates/more.wxml"/>
+<view wx:if='{{showPage}}'>
+  <template is="tagList" data="{{tagList,tagListTap}}" />
+  <template is="worksList" data="{{worksList,articleListTap}}" />
+  <template is="noMore" data='{{moreStatus}}' />
+</view>

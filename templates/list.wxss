@@ -1,0 +1,91 @@
+/* 文章列表 */
+.article-list {
+  height: 230rpx;
+  background: #fff;
+  margin: 25rpx 25rpx 0;
+  border-radius: 24rpx;
+}
+.article-list-image {
+  float: left;
+  width: 240rpx;
+  height: 180rpx;
+  padding: 25rpx 20rpx 25rpx 25rpx;
+}
+.article-list-title {
+  display: block;
+  font-weight: bold;
+  padding: 20rpx 20rpx 0 0;
+  font-size: 28rpx;
+  height: 2.2em;
+  line-height: 2.2em;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.article-list-content {
+  display: block;
+  padding-right: 20rpx;
+  color: #555;
+  line-height: 1.6em;
+  height: 3.2em;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+}
+.article-list-time ,.works-list-time {
+  display: block;
+  color: #999;
+  padding-top: 10rpx;
+  font-size: 24rpx;
+}
+.article-list-time.icon-font-time::before,.works-list-time.icon-font-time::before{
+  padding-right: 8rpx;
+}
+
+/* 作品列表 */
+.works-list-ul {
+  overflow: hidden;
+  padding:0 25rpx;
+}
+.works-list-li {
+  float: left;
+  width:42.5%;
+  background: #fff;
+  padding: 3%;
+  margin-top: 20rpx;
+  border-radius: 10rpx;
+}
+.works-list-ul .even {
+  margin-left: 1.5%;
+}
+.works-list-ul .odd {
+  margin-right: 1.5%;
+}
+.works-list-image {
+  width: 100%;
+  height: 240rpx;
+}
+.works-list-title {
+  display: block;
+  font-size: 28rpx;
+  line-height: 1.4em;
+  height: 1.4em;
+  padding-top: 6rpx;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+  /* display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical; */
+}
+
+/* tag列表 */
+.tag-list {
+  padding:20rpx 25rpx 0 15rpx;
+  overflow: hidden;
+}
+.tag-list button {
+  margin: 5rpx 0 0 10rpx;
+}

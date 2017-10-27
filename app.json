@@ -1,0 +1,43 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/works/index",
+    "pages/list/index",
+    "pages/tag/index",
+    "pages/article/index",
+    "pages/me/me",
+    "pages/logs/logs"
+  ], 
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#222",
+    "navigationBarTitleText": "井井客",
+    "navigationBarTextStyle":"#fff"
+  },
+  "tabBar":{
+    "list":[{
+      "pagePath":"pages/index/index",
+      "text":"首页",
+      "iconPath":"images/home01.png",
+      "selectedIconPath":"images/home02.png"
+    },{
+      "pagePath": "pages/works/index",
+      "text": "作品",
+      "iconPath": "images/works01.png",
+      "selectedIconPath": "images/works02.png"
+    },
+    {
+      "pagePath": "pages/me/me",
+      "text": "关于我",
+      "iconPath": "images/me01.png",
+      "selectedIconPath": "images/me02.png"
+    }],
+    "position": "bottom"
+  },
+  
+  "networkTimeout":{
+    "request":10000,
+    "downloadFile":10000
+  },
+  "debug":true
+}

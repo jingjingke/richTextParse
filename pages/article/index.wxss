@@ -1,0 +1,39 @@
+page {
+  background: #fff;
+  width: 94%;
+  padding:36rpx 3% 100rpx;
+}
+.article-title {
+  font-size:32rpx;
+  line-height: 1.5em;
+  padding-bottom: 20rpx;
+  font-weight: bold;
+  border-bottom: 1px solid #e8e8e8;
+}
+.article-info {
+  padding: 16rpx 0;
+  font-size: 24rpx;
+  height: 32rpx;
+  line-height: 32rpx;
+  text-indent: -10rpx;
+}
+.article-info text {
+  color: #666;
+  padding: 0 10rpx;
+}
+.article-litpic {
+  text-align: center;
+}
+.article-litpic image {
+   width: 90vw;
+}
+.article-content ,.article-des {
+  font-size: 30rpx;
+  line-height: 1.65em;
+}
+/* 新增或替换wxParse中的样式 */
+.article-des, .article-litpic {
+  padding-top: 24rpx;
+}
+.red { color: #ba3022;}
+.blue { color: #6bd;}

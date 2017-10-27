@@ -1,0 +1,24 @@
+<template name="articleList">
+  <view class='article-list' bindtap='articleListTap' data-info="{{item}}">
+    <image src="http://www.jingjingke.com{{item.litpic}}" class="article-list-image" />
+    <text class='article-list-title'>{{item.title}}</text>
+    <text class='article-list-content'>{{item.description}}</text>
+    <text class='article-list-time icon-font icon-font-time'>{{item.senddate}}</text>
+  </view>
+</template>
+
+<template name="worksList">
+  <view class='works-list-ul'>
+    <view wx:for="{{worksList}}" class="works-list-li {{index % 2 == 0 ? 'odd' : 'even'}}" bindtap='articleListTap' data-info="{{item}}">
+      <image src="http://www.jingjingke.com{{item.litpic}}" class="works-list-image"></image>
+      <text class='works-list-time icon-font icon-font-time'>{{item.senddate}}</text>
+      <text class='works-list-title'>{{item.title}}</text>
+    </view>
+  </view>
+</template>
+
+<template name="tagList">
+  <view class='tag-list'>
+    <button wx:for="{{tagList}}" type="{{tagList.length > 10 ?'default':'primary'}}" size='mini' bindtap='tagListTap' data-info="{{item}}">{{item.tag}}</button>
+  </view>
+</template>

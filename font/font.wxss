@@ -1,0 +1,25 @@
+@font-face {
+  font-family: 'iconfont';  /* project id 437611 */
+  src: url('//at.alicdn.com/t/font_437611_qeedf2ev26426gvi.eot');
+  src: url('//at.alicdn.com/t/font_437611_qeedf2ev26426gvi.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_437611_qeedf2ev26426gvi.woff') format('woff'),
+  url('//at.alicdn.com/t/font_437611_qeedf2ev26426gvi.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_437611_qeedf2ev26426gvi.svg#iconfont') format('svg');
+}
+
+.icon-font::before {
+  font-family:"iconfont" !important;
+  font-style: normal;
+  font-size: 26rpx;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 等待转圈 */
+.icon-font-delay::before { content: '\e100'} 
+/* 发布时间 */
+.icon-font-time::before { content: '\e101';}
+/* 笔记-分享-生活 */
+.icon-font-note::before { content: '\e102'; }
+.icon-font-share::before { content: '\e103'; }
+.icon-font-life::before { content: '\e104'; }

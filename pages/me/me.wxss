@@ -1,0 +1,25 @@
+/* 我的头像 */
+ page {
+  background: #fff;
+} 
+.me-photo {
+  width: 240rpx;
+  height: 240rpx;
+  display: block;
+  margin: 32rpx auto;
+  border-radius: 100%;
+}
+/* 我的介绍 */
+.me-info {
+  padding: 24rpx 32rpx 60rpx;
+  font-size: 28rpx;
+  color: #444;
+  line-height: 1.8em;
+}
+.me-info-p {
+  padding-top: 16rpx;
+}
+.me-info-b {
+  color: #222;
+  font-weight: bold;
+}
