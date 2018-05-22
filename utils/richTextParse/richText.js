@@ -19,7 +19,7 @@ function richTextParse(data) {
   }
 
   //记录基本的信息值定义
-  let cls, alt, src, width, height, step;
+  let cls, alt, src, width, height, step,href;
 
   let i = 0;
   //按标签个数进行循环
@@ -28,7 +28,7 @@ function richTextParse(data) {
     tree[index] = sendInfoTree(i)
     index++;
   }
-
+  console.log(tree)
   return tree;
 
   //将元素添加到tree中
@@ -58,20 +58,26 @@ function richTextParse(data) {
       })
     } else if (tagArr[idx + 1] === '</' + label + '>') {
       //判断紧跟它的下一个标签是否为它的闭合标签
-      obj.children.push({
-        type: 'text',
-        text: data.substring(indexArr[idx], indexArr[idx + 1])
-      })
+      let inStr = replaceStr(data.substring(indexArr[idx], indexArr[idx + 1]))
+      if (inStr !== ''){
+        obj.children.push({
+          type: 'text',
+          text: inStr
+        })
+      }
       //索引指向闭合标签
       i++;
     } else {
       //剩下的则可能这是个标签嵌套的一个标签
       //截取两个开始标签中间的内容
       if (indexArr[idx] !== indexArr[idx + 1]) {
-        obj.children.push({
-          type: 'text',
-          text: data.substring(indexArr[idx], indexArr[idx + 1])
-        })
+        let inStr = replaceStr(data.substring(indexArr[idx], indexArr[idx + 1]));
+        if (inStr !== ''){
+          obj.children.push({
+            type: 'text',
+            text: inStr
+          })
+        }
       }
       //循环向下去找
       i++;
@@ -79,14 +85,22 @@ function richTextParse(data) {
         obj.children.push(sendInfoTree(i));
         //如果标签中间有文本（即索引不一致）
         if (indexArr[i - 1] !== indexArr[i]) {
-          obj.children.push({
-            type: 'text',
-            text: data.substring(indexArr[i - 1], indexArr[i])
-          })
+          let inStr = replaceStr(data.substring(indexArr[i - 1], indexArr[i]));
+          if (inStr !== ''){
+            obj.children.push({
+              type: 'text',
+              text: inStr
+            })
+          }
         }
         //如果下一个是该结束的话则跳出
         if (tagArr[i] === '</' + label + '>') break;
       }
+    }
+    //如果是a标签的情况（没有跳转，将链接明文显示）
+    if (label === 'a') {  
+      obj.attrs['selectable'] = 'true'; 
+      obj.children[obj.children.length - 1].text += '（' + href + '）';
     }
     i++;
     return obj;
@@ -106,6 +120,8 @@ function richTextParse(data) {
       alt = matchRule(str, 'alt');
       width = matchRule(str, 'width');
       height = matchRule(str, 'height');
+    }else if (str.match(/<*([^> ]*)/)[1] === 'a') {
+      href = matchRule(str, 'href');
     }
     //判断是否为单闭合标签
     step = str[str.length - 2] === '/' ? 0 : 1;
@@ -130,6 +146,10 @@ function richTextParse(data) {
       }
     }
     return name;
+  }
+  // 清理头尾无用标签空格等
+  function replaceStr(str) {
+    return str.replace(/^\s+|\s+$/g, '');
   }
 }
 
