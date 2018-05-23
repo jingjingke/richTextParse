@@ -1,32 +1,32 @@
-## ΢��С�����ı����� - richTextParse��
-�����󵽵�HTML����ת��Ϊ[rich-text��ǩ](https://mp.weixin.qq.com/debug/wxadoc/dev/component/rich-text.html)��nodes����֧�ֵ�JSON��ʽ���Ӷ�ʵ����΢��С�����еĿ��ӻ�����Ϊ�Ǹ������Լ�������ȥ���ģ�����Ŀǰ���ܱȽϼ򵥡�
+## 微信小程序富文本解析 - richTextParse。
+将请求到的HTML代码转化为[rich-text标签](https://mp.weixin.qq.com/debug/wxadoc/dev/component/rich-text.html)中nodes属性支持的JSON格式，从而实现在微信小程序中的可视化。因为是根据我自己的需求去做的，所以目前功能比较简单。
 
-�ڴ��Ƽ���[wxParse](https://github.com/icindy/wxParse)����������ܱȽ�ȫ������ΪwxParse����pre��ǩ�е����⣬���ԲŶ���д��richTextParse��
+在此推荐“[wxParse](https://github.com/icindy/wxParse)”组件，功能比较全。但因为wxParse解析pre标签有点问题，所以才动手写了richTextParse。
 
-richTextParse��˼·���ǽ�HTML�������ΪDOM���ͽṹ���ǳ������⡣��Ҳ������Ŀǰ����Ļ����Ͻ��и���ı�ǩ��֤��Ŀǰ��ֻ��֤��ͼ���ǩ����ͼ���ǩ�м���src�����ԣ����ḻ���빦�ܡ�����һ�ж������뿪΢��С�����е�[rich-text��ǩ](https://mp.weixin.qq.com/debug/wxadoc/dev/component/rich-text.html)֧�֡�
+richTextParse的思路就是将HTML代码解析为DOM树型结构，非常好理解。你也可以在目前代码的基础上进行更多的标签验证（目前我只验证了图像标签，在图像标签中加入src等属性），丰富代码功能。而这一切都不能离开微信小程序中的[rich-text标签](https://mp.weixin.qq.com/debug/wxadoc/dev/component/rich-text.html)支持。
 
-### Ч��
-![Ч��ͼ](utils/richTextParse/effect.png)
+### 效果
+![效果图](utils/richTextParse/effect.png)
 
-֧��Html�ĵ��г��õı�ǩ��
+支持Html文档中常用的标签。
 
-### ʹ��
-��Ҫʹ�õ����ļ�����������richText.js���͡�richText.wxss�������Ǵ���ڣ���utils/richTextParse���ļ����¡�
+### 使用
+需要使用到的文件有两个：“richText.js”和“richText.wxss”。它们存放在：“utils/richTextParse”文件夹下。
 
-�ں��ʵ�λ��������ʽ�����硰app.wxss��(����)����������Ҫʹ�õ�λ�ã����ġ�*.wxss���С�
+在合适的位置引入样式，例如“app.wxss”(建议)，或者在需要使用的位置，它的“*.wxss”中。
 
-�����������ֻ��һ���õ�������ֱ������Ҫʹ�õ�λ������JS�ļ����ɡ�
-#### �����ļ�
+而这个功能我只有一处用到，所以直接在需要使用的位置引入JS文件即可。
+#### 引入文件
 ```
-//��ʹ�õ�View(pages/article/index.js)������
+//在使用的View(pages/article/index.js)中引入
 var richTextParse = require('../../utils/richTextParse/richText.js');
 ```
 ```
-//�ڡ�app.wxss��������
+//在“app.wxss”中引入
 @import 'utils/richTextParse/richText.wxss';
 ```
-�ڽӿڻ�ȡhtml��λ�ã�ʹ�á�richTextParse.go()��������ȡ�������Ľ���������ҵģ�
-#### ����html����
+在接口获取html的位置，使用“richTextParse.go()”方法获取到解析的结果。例如我的：
+#### 解析html代码
 ```
 success:function(rs){
   that.setData({
@@ -36,13 +36,13 @@ success:function(rs){
   })
 }
 ```
-#### ģ����ʹ��
-����wxml��ʹ��rice-text���ɣ�
+#### 模板中使用
+而在wxml中使用rice-text即可：
 ```
 <rich-text nodes='{{bodyHtml}}'></rich-text>
 ```
 ------
-����������жദ��Ҫ�õ���һ���ܣ������JS�ڡ�app.js�������룬���ҹ���App�£�
+另外如果你有多处需要用到这一功能，建议把JS在“app.js”中引入，并且挂在App下：
 ```
 var richTextParse = require('utils/richTextParse/richText.js');
 App({
@@ -51,7 +51,7 @@ App({
     ...
 })
 ```
-����Ҫʹ�õ�λ��ʹ��ȫ��richTextParse�������ɣ�
+在需要使用的位置使用全局richTextParse方法即可：
 ```
 var app = getApp();
 Page({
@@ -61,5 +61,11 @@ Page({
 })
 ```
 
-### ��β
-�������ܿ���ʹ�ã���Ϊ�Ѿ��������Լ��������ˣ�����Ӧ�ò��᳣���¡������С�����ʹ�õ�ʱ����Ҫ��ʲô���ܵĻ�ϣ�����Ը������Ż������~
+### 结尾
+基本功能可以使用，因为已经满足我自己的需求了，所以应该不会常更新。而如果小伙伴在使用的时候想要有什么功能的话希望可以给我提优化的意见~
+
+### 2018.05.23新增代码高亮
+#### 高亮使用的prism插件
+这里只使用了prism默认的样式，暂时只包含我常用的html,js,css等高亮功能，定制功能可去prism下载，只需要替换utils/richTextParse下的prism.js与prism.wxss（将prism.css重命名）并修改编辑器匹配语言的switch条件（switch语句在下面说到的98-132行内）。
+#### 注意
+因为各文本编辑器存在差异，可根据自己实际情况修改utils/richTextParse/richText.js文件第98-132行。

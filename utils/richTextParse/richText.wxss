@@ -10,7 +10,7 @@
   font-size: 26rpx;
   margin-top: 24rpx;
   padding: 12rpx;
-  background: #f2f2f2;
+  background: #f5f2f0;
   white-space: pre-wrap; 
   word-break: break-all;
 }
@@ -40,3 +40,6 @@
 .rich-h1,.rich-h2,.rich-h3,.rich-h4,.rich-h5,.rich-h6 {
   padding-top: 1em;
 }
+
+/* 引入prism样式 */
+@import 'prism.wxss';

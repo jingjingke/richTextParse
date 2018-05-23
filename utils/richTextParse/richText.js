@@ -1,7 +1,9 @@
+var Prism = require('./prism.js');
+
 function richTextParse(data) {
-  //支持标签
-  //	let nameArr = ['a','abbr','b','blockquote','br','code','col','colgroup','dd','del','div','dl','dt','em','fieldset','h1','h2','h3','h4','h5','h6','hr','i','img','ins','label','legend','li','ol','p','q','span','strong','sub','sup','table','tbody','td','tfoot','th','thead','tr','ul'];
-  let nameArr = ['a', 'b', 'code', 'dd', 'div', 'dl', 'dt', 'em', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'i', 'img', 'label', 'li', 'ol', 'p', 'span', 'strong', 'sub', 'sup', 'table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'tr', 'ul'];
+  // 支持标签
+  	let nameArr = ['a','abbr','b','blockquote','br','code','col','colgroup','dd','del','div','dl','dt','em','fieldset','h1','h2','h3','h4','h5','h6','hr','i','img','ins','label','legend','li','ol','p','q','span','strong','sub','sup','table','tbody','td','tfoot','th','thead','tr','ul'];
+  // let nameArr = ['a', 'b', 'code', 'dd', 'div', 'dl', 'dt', 'em', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'i', 'img', 'label', 'li', 'ol', 'p', 'span', 'strong', 'sub', 'sup', 'table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'tr', 'ul'];
   //最终结构树
   let tree = [];
   //初索引
@@ -28,7 +30,6 @@ function richTextParse(data) {
     tree[index] = sendInfoTree(i)
     index++;
   }
-  console.log(tree)
   return tree;
 
   //将元素添加到tree中
@@ -58,26 +59,20 @@ function richTextParse(data) {
       })
     } else if (tagArr[idx + 1] === '</' + label + '>') {
       //判断紧跟它的下一个标签是否为它的闭合标签
-      let inStr = replaceStr(data.substring(indexArr[idx], indexArr[idx + 1]))
-      if (inStr !== ''){
-        obj.children.push({
-          type: 'text',
-          text: inStr
-        })
-      }
+      obj.children.push({
+        type: 'text',
+        text: data.substring(indexArr[idx], indexArr[idx + 1])
+      })
       //索引指向闭合标签
       i++;
     } else {
       //剩下的则可能这是个标签嵌套的一个标签
       //截取两个开始标签中间的内容
       if (indexArr[idx] !== indexArr[idx + 1]) {
-        let inStr = replaceStr(data.substring(indexArr[idx], indexArr[idx + 1]));
-        if (inStr !== ''){
-          obj.children.push({
-            type: 'text',
-            text: inStr
-          })
-        }
+        obj.children.push({
+          type: 'text',
+          text: data.substring(indexArr[idx], indexArr[idx + 1])
+        })
       }
       //循环向下去找
       i++;
@@ -85,13 +80,10 @@ function richTextParse(data) {
         obj.children.push(sendInfoTree(i));
         //如果标签中间有文本（即索引不一致）
         if (indexArr[i - 1] !== indexArr[i]) {
-          let inStr = replaceStr(data.substring(indexArr[i - 1], indexArr[i]));
-          if (inStr !== ''){
-            obj.children.push({
-              type: 'text',
-              text: inStr
-            })
-          }
+          obj.children.push({
+            type: 'text',
+            text: data.substring(indexArr[i - 1], indexArr[i])
+          })
         }
         //如果下一个是该结束的话则跳出
         if (tagArr[i] === '</' + label + '>') break;
@@ -102,6 +94,43 @@ function richTextParse(data) {
       obj.attrs['selectable'] = 'true'; 
       obj.children[obj.children.length - 1].text += '（' + href + '）';
     }
+    //如果是pre标签的情况（添加高亮组件）
+    if (label === 'pre' && obj.attrs.class !== undefined){
+      // 定义上色所用的语言是哪种(默认html)
+      let keyValue = 'html';
+      // 取得样式并切割获取原始样式数组
+      let attrArray = obj.attrs.class.split(' ');
+      // 判断原始样式数组中是否含有prettyprint（这个和我使用的文本编辑器有关，每个人使用的会有差异）
+      if (attrArray.indexOf('prettyprint') >= 0){
+        // 如果有的情况，则取得对应使用的语言
+        let lang = obj.attrs.class.match(/lang-[^\s]*/g);
+        //判断使用的情况如下
+        if (lang.length > 0){
+          switch (lang[0]){
+            case 'lang-js':
+              keyValue = 'javascript';
+              break;
+            case 'lang-css':
+              keyValue = 'css';
+              break;
+            case 'lang-html':
+              keyValue = 'html';
+              break;
+            case 'lang-bsh':
+              keyValue = 'bash';
+              break;
+          }
+        }
+      }
+      //执行编译相关
+      let preObj = richTextParse('<div>' + Prism.highlight(escape2Html(obj.children[0].text), Prism.languages[keyValue], keyValue) + '</div>');
+      // 加入obj中
+      delete obj.children[0].type;
+      delete obj.children[0].text;
+      obj.children[0].name = 'div';
+      obj.children[0].children = preObj;
+    }
+
     i++;
     return obj;
   }
@@ -148,9 +177,15 @@ function richTextParse(data) {
     return name;
   }
   // 清理头尾无用标签空格等
-  function replaceStr(str) {
-    return str.replace(/^\s+|\s+$/g, '');
-  }
+  // function replaceStr(str) {
+  //   return str.replace(/^\s+|\s+$/g, '');
+  // }
+
+  //html字符转换
+  function escape2Html(str) {
+    var arrEntities = { 'lt': '<', 'gt': '>', 'nbsp': ' ', 'amp': '&', 'quot': '"' };
+    return str.replace(/&(lt|gt|nbsp|amp|quot);/ig, function (all, t) { return arrEntities[t]; });
+  } 
 }
 
 module.exports = {
